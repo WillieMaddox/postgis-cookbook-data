@@ -1,0 +1,59 @@
+p. 9 step 2.
+adding this line after the psql call would have saved me a lot of time:
+postgis_cookbook=> CREATE SCHEMA chp01;
+
+Those new to postgreSQL would benefit greatly by going through chapter 10 first.
+
+p. 394 step 2.
+insert
+psql -d chapter10
+before calling
+CREATE SCHEMA postgis;
+Otherwise, the schema will be applied to the default postgres database and not chapter10.
+
+p. 396 step 10.
+What is the reasoning behind copying the dataset into its own directory?
+Also, suggest not using mixed unix and windows syntax for a command.
+
+p. 399 step 3.
+Why the need for
+> psql -d chapter10
+Should we already be in the chapter10 database (execute at the beginning of step 1)?
+
+p. 400 step 9. 10. and 11.
+After executing step 9. the \dn+ already looks like the privileges displayed in step 11.
+The command in step 10, adds another privilege to the postgis schema,
+
+                          List of schemas
+  Name   |  Owner   |  Access privileges   |      Description       
+---------+----------+----------------------+------------------------
+ postgis | postgres | postgres=UC/postgres+| 
+         |          | group1=U/postgres   +| 
+         |          | group2=U/postgres   +| 
+         |          | =U/postgres          | 
+ public  | postgres | postgres=UC/postgres+| standard public schema
+         |          | =UC/postgres         | 
+
+Should the reader not have executed step 10? It is unclear what the reader is expected to do here.
+
+p. 401 step 18.
+change 
+"the ability use the UPDATE"
+to
+"the ability to use the UPDATE"
+
+p. 401 step 19.
+change
+psql -d chapter10 -u user3
+to
+psql -d chapter10 -U user3
+
+also,
+when executing,
+psql -d chapter10 -U user3
+psql returns,
+psql: FATAL:  Peer authentication failed for user "user3"
+I've experienced this in other places in this book, but I do not see it addressed anywhere.
+A Note with an explanation along with some good external links would be helpful.
+
+
