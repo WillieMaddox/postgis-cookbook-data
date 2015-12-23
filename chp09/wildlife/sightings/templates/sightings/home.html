@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wildlife's Sightings</title>
+    <link rel="stylesheet" href="http://leafletjs.com/dist/leaflet.css" />
+    <script src="http://leafletjs.com/dist/leaflet.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  </head>
+  <body>
+    
+    <h1>Wildlife's Sightings</h1>
+    
+    <p>There are {{ sightings.count }} sightings in the database.</p>
+    <div id="map" style="width:800px; height:500px"></div>
+    
+    <ul>
+    {% for s in sightings %}
+        <li><strong>{{ s.animal }}</strong>, 
+            seen in {{ s.country_name }} on {{ s.date }}
+            and rated {{ s.rate }}</li>
+    {% endfor %}
+    </ul>
+
+    <script type="text/javascript">
+
+    // OSM layer
+    var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: "Data by OpenStreetMap"
+    });
+    
+    // map creation
+    var map = new L.Map('map', {
+        center: new L.LatLng(15, 0), 
+        zoom: 2,
+        layers: [osm],
+        zoomControl: true
+    });
+    
+    // add GeoJSON layer
+    $.ajax({
+        type: "GET",
+        url: "geojson",
+        dataType: 'json',
+        success: function (response) {
+            geojsonLayer = L.geoJson(response, {
+                style: function (feature) {
+                    return {color: feature.properties.color};
+                },
+                onEachFeature: function (feature, layer) {
+                    var html = "<strong>" + feature.properties.animal_name
+                         + "</strong><br />" 
+                         + feature.properties.animal_image_url
+                         + "<br /><strong>Description:</strong> " 
+                         + feature.properties.description
+                         + "<br /><strong>Rate:</strong> " 
+                         + feature.properties.rate
+                         + "<br /><strong>Date:</strong> " 
+                         + feature.properties.date_formatted
+                         + "<br /><strong>Country:</strong> " 
+                         + feature.properties.country_name
+                    layer.bindPopup(html);
+                }
+            }).addTo(map);
+        }
+});
+
+    </script>
+    
+  </body>
+</html>
