@@ -14,6 +14,7 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
   # config.vm.box = "base"
   config.vm.box = "ubuntu/trusty64"
+  config.vm.hostname = "postGISCkBk"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -23,9 +24,9 @@ Vagrant.configure(2) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 8000, host: 8000
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
-  config.vm.network "forwarded_port", guest: 5000, host: 5000
+  config.vm.network "forwarded_port", guest: 8000, host: 8000, auto_correct: true
+  config.vm.network "forwarded_port", guest: 8080, host: 8080, auto_correct: true
+  config.vm.network "forwarded_port", guest: 5432, host: 5432, auto_correct: true
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -46,13 +47,15 @@ Vagrant.configure(2) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
+    vb.name = "PostGISCkBk-trusty64"
+    vb.memory = 2048
+    vb.cpus = 2
+  end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -68,6 +71,11 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", path: "pg_config.sh"
+  config.vm.provision "shell", path: "setup.sh"
+#  config.vm.provision "shell", path: "chp01/setup.sh"
+#  config.vm.provision "shell", path: "chp04/setup.sh"
+  config.vm.provision "shell", path: "chp05/setup.sh"
+  config.vm.provision "shell", path: "chp07/setup.sh"
   # config.vm.provision "shell", inline: <<-SHELL
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
