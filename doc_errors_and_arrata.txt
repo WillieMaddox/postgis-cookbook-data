@@ -3,6 +3,14 @@ adding this line after the psql call would have saved me a lot of time:
 postgis_cookbook=> CREATE SCHEMA chp01;
 
 Those new to postgreSQL would benefit greatly by going through chapter 10 first.
+p. 26 step 2.
+ALTER TABLE hotspots should read ALTER TABLE chp01.hotspots
+p. 39 step 1.
+tmin_10m_bil.zip isn't used anywhere in this book.
+p. 41 step 3.
+tmax01.bil should read tmax1.bil
+p. 52 step 3.
+There should only be one instance of password='mypassword' and schema='chp01' in this script.
 
 p. 178 and 179
 Change,

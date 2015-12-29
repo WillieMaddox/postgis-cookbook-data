@@ -72,10 +72,10 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", path: "pg_config.sh"
   config.vm.provision "shell", path: "setup.sh"
-#  config.vm.provision "shell", path: "chp01/setup.sh"
+  config.vm.provision "shell", path: "chp01/setup.sh"
 #  config.vm.provision "shell", path: "chp04/setup.sh"
-  config.vm.provision "shell", path: "chp05/setup.sh"
-  config.vm.provision "shell", path: "chp07/setup.sh"
+#  config.vm.provision "shell", path: "chp05/setup.sh"
+#  config.vm.provision "shell", path: "chp07/setup.sh"
   # config.vm.provision "shell", inline: <<-SHELL
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
