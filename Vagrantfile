@@ -53,7 +53,7 @@ Vagrant.configure(2) do |config|
   #
   #   # Customize the amount of memory on the VM:
     vb.name = "PostGISCkBk-trusty64"
-    vb.memory = 2048
+    vb.memory = 4096
     vb.cpus = 2
   end
   #
@@ -70,9 +70,11 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", path: "pg_config.sh"
-  config.vm.provision "shell", path: "setup.sh"
-  config.vm.provision "shell", path: "chp01/setup.sh"
+#  config.vm.provision "shell", path: "pg_config.sh"
+#  config.vm.provision "shell", path: "setup.sh"
+#  config.vm.provision "shell", path: "chp01/setup.sh"
+  config.vm.provision "shell", path: "chp02/setup.sh"
+  config.vm.provision "shell", path: "chp02/cleanup.sh"
 #  config.vm.provision "shell", path: "chp04/setup.sh"
 #  config.vm.provision "shell", path: "chp05/setup.sh"
 #  config.vm.provision "shell", path: "chp07/setup.sh"

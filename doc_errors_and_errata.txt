@@ -1,3 +1,7 @@
+#############
+### chp01 ###
+#############
+
 p. 9 step 2.
 adding this line after the psql call would have saved me a lot of time:
 postgis_cookbook=> CREATE SCHEMA chp01;
@@ -12,6 +16,23 @@ tmax01.bil should read tmax1.bil
 p. 52 step 3.
 There should only be one instance of password='mypassword' and schema='chp01' in this script.
 
+#############
+### chp02 ###
+#############
+
+p. 61 and 62
+Why does the popgeom_insert change from a per-statement trigger to a per-row trigger in the "Extending further..." section.
+Some explaination here would be helpful.
+p. 68
+Where is the "monolithic contour table called cuy_contours_2"?
+The psql CREATE TABLE script won't work without it.
+p. 78
+Change all instances of geom to the_geom in the first and second code blocks.
+
+#############
+### chp05 ###
+#############
+
 p. 178 and 179
 Change,
 FROM prism
@@ -23,6 +44,10 @@ Change,
 SELECT DropRasterConstraints('prism', 'rast'::name);
 to
 SELECT DropRasterConstraints('chp05', 'prism', 'rast'::name);
+
+#############
+### chp10 ###
+#############
 
 p. 394 step 2.
 insert
