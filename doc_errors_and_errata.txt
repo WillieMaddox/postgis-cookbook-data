@@ -30,6 +30,13 @@ p. 78
 Change all instances of geom to the_geom in the first and second code blocks.
 
 #############
+### chp03 ###
+#############
+
+p. 121 step 3.
+hu_regions_topo should be hu_topo
+
+#############
 ### chp05 ###
 #############
 
