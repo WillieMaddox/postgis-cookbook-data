@@ -8,7 +8,7 @@ DIR=/$USER/$SCH
 
 cd $DIR/
 
-cat << EOF | su - vagrant -c "psql -d $DB"
+cat << EOF | su - $USER -c "psql -d $DB"
 DROP SCHEMA IF EXISTS $SCH CASCADE;
 CREATE SCHEMA $SCH;
 EOF

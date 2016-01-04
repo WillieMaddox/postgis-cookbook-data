@@ -1,13 +1,22 @@
 #!/bin/bash
 
-# Importing LiDAR data
+USER=vagrant
+PASS=vagrant0
+DB=postgis_cookbook
+SCH=chp07
+DIR=/$USER/$SCH
 
-cat << EOF | su - vagrant
-psql -d postgis_cookbook -c 'CREATE SCHEMA chp07;'
+cd $DIR/
+
+cat << EOF | su - $USER -c "psql -d $DB"
+DROP SCHEMA IF EXISTS $SCH CASCADE;
+CREATE SCHEMA $SCH;
 EOF
 
-cat << EOF | su - vagrant -c 'psql -d postgis_cookbook'
-CREATE TABLE chp07.lidar
+# Importing LiDAR data
+
+cat << EOF | su - $USER -c "psql -d $DB"
+CREATE TABLE $SCH.lidar
 (
 x numeric,
 y numeric,
@@ -22,10 +31,10 @@ vnum integer
 WITH (OIDS=FALSE);
 EOF
 
-#ALTER TABLE chp07.lidar OWNER TO vagrant;
+#ALTER TABLE $SCH.lidar OWNER TO $USER;
 
-su - vagrant
-cd /vagrant/chp07
+su - $USER
+cd /$USER/$SCH
 x=0
 total=`ls *.las | wc | awk '{print $1}'`
 for f in $( ls *.las); do
@@ -34,26 +43,23 @@ for f in $( ls *.las); do
  las2txt --parse xyzinrcpM --delimiter "," $f $f.csv
 done
 
-cat << EOF | su - vagrant -c 'psql -d postgis_cookbook'
-\copy chp07.lidar from '/vagrant/chp07/N2210595.las.csv' with csv
-\copy chp07.lidar from '/vagrant/chp07/N2215595.las.csv' with csv
-\copy chp07.lidar from '/vagrant/chp07/N2220595.las.csv' with csv
-SELECT AddGeometryColumn('chp07', 'lidar', 'the_geom', 3734, 'POINT', 3);
-UPDATE chp07.lidar SET the_geom = ST_SetSRID(ST_MakePoint(x, y, z), 3734);
-ALTER TABLE chp07.lidar ADD COLUMN gid serial;
-ALTER TABLE chp07.lidar ADD PRIMARY KEY (gid);
+cat << EOF | su - $USER -c "psql -d $DB"
+\copy $SCH.lidar from "/$USER/$SCH/N2210595.las.csv" with csv
+\copy $SCH.lidar from "/$USER/$SCH/N2215595.las.csv" with csv
+\copy $SCH.lidar from "/$USER/$SCH/N2220595.las.csv" with csv
+SELECT AddGeometryColumn('$SCH', 'lidar', 'the_geom', 3734, 'POINT', 3);
+UPDATE $SCH.lidar SET the_geom = ST_SetSRID(ST_MakePoint(x, y, z), 3734);
+ALTER TABLE $SCH.lidar ADD COLUMN gid serial;
+ALTER TABLE $SCH.lidar ADD PRIMARY KEY (gid);
 EOF
 
 # Performing 3D queries on a LiDAR point cloud
 
-cat << EOF | su - vagrant -c 'psql -d postgis_cookbook'
-CREATE INDEX chp07_lidar_the_geom_3dx ON chp07.lidar USING gist(the_geom gist_geometry_ops_nd);
+cat << EOF | su - $USER -c "psql -d $DB"
+CREATE INDEX $SCH_lidar_the_geom_3dx ON $SCH.lidar USING gist(the_geom gist_geometry_ops_nd);
 EOF
 
-cat << EOF | su - vagrant
-cd /vagrant/chp07
-shp2pgsql -s 3734 -d -i -I -W LATIN1 -t 3DZ -g the_geom hydro_line.shp chp07.hydro | psql -U vagrant -d postgis_cookbook
-EOF
+shp2pgsql -s 3734 -d -i -I -W LATIN1 -t 3DZ -g the_geom hydro_line.shp $SCH.hydro | psql -U $USER -d $DB
 
 # Constructing and serving buildings 2.5 D
 

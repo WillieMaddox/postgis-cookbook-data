@@ -42,7 +42,7 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-
+  config.vm.synced_folder "/media/maddoxw/Borg_LS/terrain/TCA_LiDAR", "/texas_data"
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
@@ -76,9 +76,11 @@ Vagrant.configure(2) do |config|
 #  config.vm.provision "shell", path: "chp02/setup.sh"
 #  config.vm.provision "shell", path: "chp02/cleanup.sh"
 #  config.vm.provision "shell", path: "chp03/setup.sh"
-  config.vm.provision "shell", path: "chp03/cleanup.sh"
+#  config.vm.provision "shell", path: "chp03/cleanup.sh"
 #  config.vm.provision "shell", path: "chp04/setup.sh"
-#  config.vm.provision "shell", path: "chp05/setup.sh"
+#  config.vm.provision "shell", path: "chp04/cleanup.sh"
+  config.vm.provision "shell", path: "chp05/setup.sh"
+#  config.vm.provision "shell", path: "chp05/cleanup.sh"
 #  config.vm.provision "shell", path: "chp07/setup.sh"
   # config.vm.provision "shell", inline: <<-SHELL
   #   sudo apt-get update

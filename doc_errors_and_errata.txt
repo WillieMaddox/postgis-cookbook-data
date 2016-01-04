@@ -7,12 +7,22 @@ adding this line after the psql call would have saved me a lot of time:
 postgis_cookbook=> CREATE SCHEMA chp01;
 
 Those new to postgreSQL would benefit greatly by going through chapter 10 first.
+
 p. 26 step 2.
 ALTER TABLE hotspots should read ALTER TABLE chp01.hotspots
+
+p. 35 step 6.
+$ psql -U me -d romerome=# CREATE EXTENSION hstore;
+should be split into two lines,
+$ psql -U me -d rome
+rome=# CREATE EXTENSION hstore;
+
 p. 39 step 1.
 tmin_10m_bil.zip isn't used anywhere in this book.
+
 p. 41 step 3.
 tmax01.bil should read tmax1.bil
+
 p. 52 step 3.
 There should only be one instance of password='mypassword' and schema='chp01' in this script.
 
@@ -23,9 +33,11 @@ There should only be one instance of password='mypassword' and schema='chp01' in
 p. 61 and 62
 Why does the popgeom_insert change from a per-statement trigger to a per-row trigger in the "Extending further..." section.
 Some explaination here would be helpful.
+
 p. 68
 Where is the "monolithic contour table called cuy_contours_2"?
 The psql CREATE TABLE script won't work without it.
+
 p. 78
 Change all instances of geom to the_geom in the first and second code blocks.
 

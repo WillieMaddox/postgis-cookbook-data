@@ -40,10 +40,10 @@ class Sighting(gismodels.Model):
         (2, '**'),
         (3, '***'),
     )
+    animal = gismodels.ForeignKey(Animal)
     date = gismodels.DateTimeField()
     description = gismodels.TextField()
     rate = gismodels.IntegerField(choices=RATE_CHOICES)
-    animal = gismodels.ForeignKey(Animal)
     geometry = gismodels.PointField(srid=4326) 
     objects = gismodels.GeoManager()
 
