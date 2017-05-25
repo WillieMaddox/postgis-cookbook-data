@@ -13,7 +13,7 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   # config.vm.box = "base"
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/vivid64"
   config.vm.hostname = "postGISCkBk"
 
   # Disable automatic box update checking. If you disable this, then
@@ -43,6 +43,7 @@ Vagrant.configure(2) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "/media/maddoxw/Borg_LS/terrain/TCA_LiDAR", "/texas_data"
+  config.vm.synced_folder "/media/maddoxw/Borg_LS/terrain/vector_data", "/vector_data"
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
@@ -52,7 +53,7 @@ Vagrant.configure(2) do |config|
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-    vb.name = "PostGISCkBk-trusty64"
+    vb.name = "PostGISCkBk-vivid64"
     vb.memory = 4096
     vb.cpus = 2
   end
@@ -72,16 +73,17 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
 #  config.vm.provision "shell", path: "pg_config.sh"
 #  config.vm.provision "shell", path: "setup.sh"
-#  config.vm.provision "shell", path: "chp01/setup.sh"
+  config.vm.provision "shell", path: "chp01/setup.sh"
 #  config.vm.provision "shell", path: "chp02/setup.sh"
 #  config.vm.provision "shell", path: "chp02/cleanup.sh"
 #  config.vm.provision "shell", path: "chp03/setup.sh"
 #  config.vm.provision "shell", path: "chp03/cleanup.sh"
 #  config.vm.provision "shell", path: "chp04/setup.sh"
 #  config.vm.provision "shell", path: "chp04/cleanup.sh"
-  config.vm.provision "shell", path: "chp05/setup.sh"
+#  config.vm.provision "shell", path: "chp05/setup.sh"
 #  config.vm.provision "shell", path: "chp05/cleanup.sh"
 #  config.vm.provision "shell", path: "chp07/setup.sh"
+#  config.vm.provision "shell", path: "chp09/setup.sh"
   # config.vm.provision "shell", inline: <<-SHELL
   #   sudo apt-get update
   #   sudo apt-get install -y apache2

@@ -51,7 +51,7 @@ INSERT INTO $SCH.xwhyzed1 (x, y, z) VALUES (random()*5, random()*7, random()*106
 INSERT INTO $SCH.xwhyzed1 (x, y, z) VALUES (random()*5, random()*7, random()*106);
 INSERT INTO $SCH.xwhyzed1 (x, y, z) VALUES (random()*5, random()*7, random()*106);
 
-SELECT AddGeometryColumn ('$SCH', 'xwhyzed1', 'geom', 3734, 'POINT', 2);
+SELECT AddGeometryColumn ("$SCH", 'xwhyzed1', 'geom', 3734, 'POINT', 2);
 
 UPDATE $SCH.xwhyzed1 SET geom = ST_SetSRID(ST_MakePoint(x, y), 3734);
 
